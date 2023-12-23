@@ -1,0 +1,57 @@
+import 'dart:io';
+
+class Node {
+  int data;
+  Node? next;
+
+  Node(this.data);
+}
+
+class LinkedList {
+  Node? head;
+
+  void removeAllOccurrences(int item) {
+    head = _removeAllOccurrencesHelper(head, item);
+  }
+
+  Node? _removeAllOccurrencesHelper(Node? current, int item) {
+    if (current == null) {
+      return null;
+    }
+
+    if (current.data == item) {
+      return _removeAllOccurrencesHelper(current.next, item);
+    }
+
+    current.next = _removeAllOccurrencesHelper(current.next, item);
+    return current;
+  }
+
+  void printList() {
+    Node? current = head;
+    while (current != null) {
+      print(current.data);
+      current = current.next;
+    }
+  }
+}
+
+void main() {
+  LinkedList list = LinkedList();
+
+  list.head = Node(7);
+  list.head!.next = Node(1);
+  list.head!.next!.next = Node(3);
+  list.head!.next!.next!.next = Node(1);
+  list.head!.next!.next!.next!.next = Node(2);
+  list.head!.next!.next!.next!.next!.next = Node(1);
+  list.head!.next!.next!.next!.next!.next!.next = Node(3);
+
+  print('Original list:');
+  list.printList();
+
+  list.removeAllOccurrences(1);
+
+  print('\nList after removing all occurrences of 1:');
+  list.printList();
+}

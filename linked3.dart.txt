@@ -1,0 +1,21 @@
+class ListNode {
+  int value;
+  ListNode? next;
+
+  ListNode(this.value);
+}
+
+ListNode reverseLinkedList(ListNode head) {
+  ListNode? prev = null;
+  ListNode? current = head;
+  ListNode? nextNode;
+
+  while (current != null) {
+    nextNode = current.next;
+    current.next = prev;
+    prev = current;
+    current = nextNode;
+  }
+
+  return prev ?? ListNode(-1); // Return a dummy node if the list is empty
+}

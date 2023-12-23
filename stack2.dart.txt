@@ -1,0 +1,38 @@
+import 'dart:collection';
+import 'dart:io';
+
+bool isBalanced(String s) {
+  List<String> stack = [];
+
+  for (int i = 0; i < s.length; i++) {
+    String currentCharacter = s[i];
+
+    if (currentCharacter == '(') {
+      // If the current character is '(', push it to the stack
+      stack.add(currentCharacter);
+    } else if (currentCharacter == ')') {
+      // If the current character is ')', check if the stack is not empty
+      // and the last element in the stack is '('
+      if (stack.isEmpty || stack.removeLast() != '(') {
+        // If conditions are not met, return false
+        return false;
+      }
+    }
+  }
+
+  // If the stack is empty at the end, return true
+  return stack.isEmpty;
+}
+
+void main() {
+  print("Enter a string containing parentheses:");
+  String input = stdin.readLineSync()!;
+  bool result = isBalanced(input);
+
+  if (result) {
+    print("The parentheses are balanced.");
+  } else {
+    print("The parentheses are not balanced.");
+  }
+}
+
